@@ -25,19 +25,14 @@
 
 ## 📸 Preview
 
-| Dashboard | Tasks | Focus Mode |
-|:---------:|:-----:|:----------:|
-| ![Dashboard](<img width="1731" height="977" alt="image" src="https://github.com/user-attachments/assets/44c2f3d0-0848-4dab-a96f-3efc72909e86" />
-) | ![Tasks](<img width="1731" height="1313" alt="image" src="https://github.com/user-attachments/assets/969f3626-faff-4d56-a977-aed2c87e7a4e" />
-) | ![Focus](<img width="1731" height="1076" alt="image" src="https://github.com/user-attachments/assets/ab3d4494-b812-4638-8ee1-f717f41f278a" />
-) |
+![Dashboard](<img width="1731" height="977" alt="image" src="https://github.com/user-attachments/assets/44c2f3d0-0848-4dab-a96f-3efc72909e86" />
+![Tasks](<img width="1731" height="1313" alt="image" src="https://github.com/user-attachments/assets/969f3626-faff-4d56-a977-aed2c87e7a4e" />
+![Focus](<img width="1731" height="1076" alt="image" src="https://github.com/user-attachments/assets/ab3d4494-b812-4638-8ee1-f717f41f278a" />
 
-| Schedule | Statistics | Dark Mode |
-|:--------:|:----------:|:---------:|
-| ![Schedule](<img width="1731" height="864" alt="image" src="https://github.com/user-attachments/assets/36b04044-326e-4279-a535-4478491b7335" />
-) | ![Stats](<img width="1731" height="1095" alt="image" src="https://github.com/user-attachments/assets/37ceafe1-e4e3-4627-bc41-907d4506ec01" />
-) | ![Dark](<img width="1731" height="1027" alt="image" src="https://github.com/user-attachments/assets/cd3836b0-2759-43d4-8815-43deaf6531a1" />
-) |
+
+![Schedule](<img width="1731" height="864" alt="image" src="https://github.com/user-attachments/assets/36b04044-326e-4279-a535-4478491b7335" />
+![Stats](<img width="1731" height="1095" alt="image" src="https://github.com/user-attachments/assets/37ceafe1-e4e3-4627-bc41-907d4506ec01" />
+![Dark](<img width="1731" height="1027" alt="image" src="https://github.com/user-attachments/assets/cd3836b0-2759-43d4-8815-43deaf6531a1" />
 
 ---
 
