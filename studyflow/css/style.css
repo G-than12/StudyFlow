@@ -1,0 +1,201 @@
+/* =============================================
+   STUDYFLOW — Custom utilities
+   Hanya untuk hal yang tidak bisa dilakukan Tailwind CDN Play:
+   - Component classes (nav-item, sf-card, sf-btn-*, dll)
+   - Animasi keyframes
+   - Timer ring SVG
+   - Toggle switch
+   - Dark mode color via class
+   ============================================= */
+
+/* ── Page visibility ── */
+.page { display: none; animation: sf-slide-up 0.25s ease; }
+.page.active { display: block; }
+
+/* ── Sidebar nav item ── */
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 10px 12px;
+  border-radius: 8px; border: none; background: transparent;
+  color: #6b7280; font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all 0.15s ease; text-align: left;
+}
+.nav-item:hover { background: #f3f4f6; color: #111827; }
+.nav-item.active { background: #eef1ff; color: #4f6ef7; font-weight: 600; }
+.dark .nav-item:hover { background: #1f2937; color: #f9fafb; }
+.dark .nav-item.active { background: #1e2040; color: #6b82f8; }
+
+/* ── Card ── */
+.sf-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  transition: background 0.2s, border-color 0.2s;
+}
+.dark .sf-card { background: #1a1d27; border-color: #2d3240; }
+
+/* ── Buttons ── */
+.sf-btn-primary {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 8px; border: none;
+  background: #4f6ef7; color: #fff;
+  font-size: 14px; font-weight: 500; cursor: pointer;
+  transition: all 0.15s ease; white-space: nowrap;
+}
+.sf-btn-primary:hover { background: #3b5be0; transform: translateY(-1px); }
+.sf-btn-primary:active { transform: translateY(0); }
+
+.sf-btn-secondary {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 8px; border: none;
+  background: #7c5cd8; color: #fff;
+  font-size: 14px; font-weight: 500; cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sf-btn-secondary:hover { opacity: 0.88; }
+
+.sf-btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 8px;
+  border: 1px solid #e5e7eb; background: transparent;
+  color: #6b7280; font-size: 14px; font-weight: 500; cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sf-btn-ghost:hover { background: #f3f4f6; color: #111827; }
+.dark .sf-btn-ghost { border-color: #374151; color: #9ca3af; }
+.dark .sf-btn-ghost:hover { background: #1f2937; color: #f9fafb; }
+
+/* ── Inputs ── */
+.sf-input {
+  width: 100%; padding: 10px 14px;
+  border: 1px solid #e5e7eb; border-radius: 8px;
+  background: #f9fafb; color: #111827;
+  font-size: 14px; font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.sf-input:focus {
+  outline: none; border-color: #4f6ef7;
+  box-shadow: 0 0 0 3px rgba(79,110,247,.12);
+}
+.sf-input.error { border-color: #ef4444; }
+.dark .sf-input { background: #111827; border-color: #374151; color: #f9fafb; }
+.dark .sf-input:focus { border-color: #6b82f8; }
+
+.sf-select { cursor: pointer; }
+
+/* ── Form helpers ── */
+.sf-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.sf-label { font-size: 12px; font-weight: 500; color: #6b7280; }
+.dark .sf-label { color: #9ca3af; }
+.sf-error { font-size: 12px; color: #ef4444; min-height: 16px; }
+
+/* ── Modal ── */
+.sf-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5); backdrop-filter: blur(2px);
+  z-index: 200; align-items: center; justify-content: center; padding: 20px;
+}
+.sf-modal-overlay:not(.hidden) { display: flex; animation: sf-fade-in 0.15s ease; }
+.sf-modal {
+  background: #fff; border-radius: 20px; padding: 28px;
+  width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,.15);
+  animation: sf-slide-up 0.2s ease;
+}
+.dark .sf-modal { background: #1a1d27; }
+.sf-modal-close {
+  background: none; border: none; font-size: 18px;
+  color: #9ca3af; padding: 4px 8px; border-radius: 6px;
+  cursor: pointer; transition: all 0.15s;
+}
+.sf-modal-close:hover { background: #f3f4f6; color: #111827; }
+.dark .sf-modal-close:hover { background: #1f2937; color: #f9fafb; }
+
+/* ── Toggle switch ── */
+.sf-toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+.sf-toggle input { opacity: 0; width: 0; height: 0; }
+.sf-toggle-slider {
+  position: absolute; inset: 0;
+  background: #d1d5db; border-radius: 99px; cursor: pointer;
+  transition: background 0.2s;
+}
+.sf-toggle-slider::before {
+  content: ''; position: absolute;
+  width: 18px; height: 18px; background: #fff;
+  border-radius: 50%; top: 3px; left: 3px;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.sf-toggle input:checked + .sf-toggle-slider { background: #4f6ef7; }
+.sf-toggle input:checked + .sf-toggle-slider::before { transform: translateX(20px); }
+
+/* ── Timer mode buttons ── */
+.timer-mode-btn {
+  padding: 8px 18px; border-radius: 12px;
+  border: 1px solid #e5e7eb; background: #fff;
+  color: #6b7280; font-size: 14px; font-weight: 500; cursor: pointer;
+  transition: all 0.15s;
+}
+.timer-mode-btn:hover { background: #f3f4f6; color: #111827; }
+.timer-mode-btn.active { background: #4f6ef7; color: #fff; border-color: #4f6ef7; }
+.dark .timer-mode-btn { background: #1a1d27; border-color: #374151; color: #9ca3af; }
+.dark .timer-mode-btn:hover { background: #1f2937; color: #f9fafb; }
+.dark .timer-mode-btn.active { background: #4f6ef7; color: #fff; border-color: #4f6ef7; }
+
+/* ── Toast ── */
+.sf-toast {
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+  padding: 12px 18px; font-size: 14px; font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  display: flex; align-items: center; gap: 10px;
+  max-width: 340px; animation: sf-slide-in-right 0.25s ease;
+}
+.dark .sf-toast { background: #1a1d27; border-color: #2d3240; color: #e6edf3; }
+.sf-toast.removing { animation: sf-slide-out-right 0.25s ease forwards; }
+.sf-toast-success { border-left: 3px solid #22c55e; }
+.sf-toast-error   { border-left: 3px solid #ef4444; }
+.sf-toast-info    { border-left: 3px solid #4f6ef7; }
+.sf-toast-warning { border-left: 3px solid #f59e0b; }
+
+/* ── Mobile header show ── */
+@media (max-width: 1023px) {
+  .mobile-header { display: flex !important; }
+  #mainContent { padding-top: 76px !important; }
+}
+
+/* ── Mobile toast full-width ── */
+@media (max-width: 640px) {
+  #toastContainer { left: 16px; right: 16px; bottom: 16px; align-items: stretch; }
+  .sf-toast { max-width: 100%; }
+}
+
+/* ── Animations ── */
+@keyframes sf-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes sf-slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes sf-slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes sf-slide-out-right {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(24px); }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 99px; }
+.dark ::-webkit-scrollbar-thumb { background: #374151; }
+
+/* ── Focus ring ── */
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid #4f6ef7; outline-offset: 2px;
+}

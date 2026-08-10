@@ -1,0 +1,769 @@
+
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StudyFlow — Ringkasan Project</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    background: #f7f8fa;
+    color: #1f2328;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+
+  /* ── Header ── */
+  .doc-header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  .badge {
+    display: inline-block;
+    background: #eef1ff;
+    color: #4f6ef7;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 99px;
+    margin-bottom: 16px;
+  }
+  .doc-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .doc-subtitle {
+    font-size: 15px;
+    color: #57606a;
+    margin-bottom: 20px;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 13px;
+    color: #6b7280;
+  }
+  .meta-row span { display: flex; align-items: center; gap: 5px; }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 36px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .section-num {
+    width: 26px; height: 26px;
+    background: #4f6ef7;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+  }
+  .section-body {
+    padding: 20px 24px;
+  }
+  p { margin-bottom: 12px; color: #374151; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── Highlight box ── */
+  .highlight {
+    background: #eef1ff;
+    border-left: 3px solid #4f6ef7;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: #1e3a8a;
+  }
+  .highlight-warn {
+    background: #fef3c7;
+    border-left: 3px solid #f59e0b;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: #78350f;
+  }
+  .highlight-green {
+    background: #dcfce7;
+    border-left: 3px solid #22c55e;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: #14532d;
+  }
+
+  /* ── Tags ── */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .tag {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 12px;
+    border-radius: 99px;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    background: #f9fafb;
+  }
+  .tag.blue   { background: #eef1ff; color: #4f6ef7; border-color: #c7d2fe; }
+  .tag.purple { background: #f3eeff; color: #7c5cd8; border-color: #ddd6fe; }
+  .tag.green  { background: #dcfce7; color: #16a34a; border-color: #bbf7d0; }
+  .tag.orange { background: #fef3c7; color: #d97706; border-color: #fde68a; }
+  .tag.red    { background: #fee2e2; color: #dc2626; border-color: #fecaca; }
+
+  /* ── Table ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  th {
+    background: #f9fafb;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f3f4f6;
+    color: #374151;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td strong { color: #111827; }
+
+  /* ── Layer card ── */
+  .layer-list { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+  .layer-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .layer-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .layer-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .layer-title { font-size: 13px; font-weight: 700; color: #111827; }
+  .layer-body { padding: 12px 14px; font-size: 13px; color: #374151; }
+  .layer-body p { margin-bottom: 6px; }
+
+  /* ── Iteration card ── */
+  .iter-list { display: flex; flex-direction: column; gap: 16px; }
+  .iter-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .iter-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .iter-ver {
+    background: #f3eeff;
+    color: #7c5cd8;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 99px;
+  }
+  .iter-label { font-size: 13px; font-weight: 600; color: #111827; }
+  .iter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .iter-col-head {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+  }
+  .iter-col-body { font-size: 12.5px; color: #374151; }
+
+  /* ── Potential item ── */
+  .potential-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .potential-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #fafafa;
+  }
+  .potential-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .potential-title { font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 3px; }
+  .potential-desc  { font-size: 12.5px; color: #57606a; }
+
+  /* ── Screenshot placeholder ── */
+  .screenshot-box {
+    border: 2px dashed #d1d5db;
+    border-radius: 10px;
+    padding: 32px;
+    text-align: center;
+    color: #9ca3af;
+    margin-top: 12px;
+    background: #fafafa;
+  }
+  .screenshot-box .icon { font-size: 32px; margin-bottom: 8px; }
+  .screenshot-box .label { font-size: 13px; font-weight: 500; }
+  .screenshot-box .sub   { font-size: 12px; margin-top: 4px; }
+
+  /* ── Link section ── */
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #fafafa;
+    margin-top: 10px;
+  }
+  .link-icon { font-size: 20px; }
+  .link-label { font-size: 13px; font-weight: 600; color: #111827; }
+  .link-url   { font-size: 12px; color: #4f6ef7; word-break: break-all; }
+  .note-box {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: #0c4a6e;
+    margin-top: 12px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  @media (max-width: 600px) {
+    .doc-title { font-size: 24px; }
+    .iter-grid { grid-template-columns: 1fr; }
+    .meta-row  { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  
+  <div class="doc-header">
+    <div class="badge">Capstone Project — IBM SkillsBuild</div>
+    <div class="doc-title">📚 StudyFlow</div>
+    <div class="doc-subtitle">Personal Study Management Dashboard berbasis AI Agent</div>
+    <div class="meta-row">
+      <span>🛠️ Vanilla JS + Tailwind CSS</span>
+      <span>💾 localStorage</span>
+      <span>🤖 IBM Bob AI Agent</span>
+      <span>🎓 Target: Mahasiswa</span>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">1</div>
+      <div class="section-title">Ringkasan Project</div>
+    </div>
+    <div class="section-body">
+      <p>
+        <strong>StudyFlow</strong> adalah aplikasi web manajemen belajar berbasis AI Agent yang dirancang untuk membantu mahasiswa dan pelajar mengatur aktivitas akademik mereka secara lebih terstruktur dan produktif. Aplikasi ini dibangun menggunakan teknologi <em>Vanilla JavaScript</em> dan <em>Tailwind CSS</em> tanpa memerlukan backend maupun database eksternal — seluruh data disimpan secara lokal menggunakan <strong>localStorage</strong> sehingga dapat langsung dijalankan hanya dengan membuka file <code>index.html</code>.
+      </p>
+      <p>
+        Project ini mengintegrasikan <strong>IBM Bob AI Agent</strong> sebagai asistensi cerdas dalam perancangan dan pengembangan fitur-fitur utama, mulai dari arsitektur prompt yang digunakan untuk menghasilkan kode berkualitas, hingga iterasi penyempurnaan prompt demi menghasilkan output yang tepat sasaran. StudyFlow menyediakan lima modul utama: <strong>Task Management</strong> (CRUD tugas), <strong>Study Schedule</strong> (jadwal mingguan), <strong>Focus Mode</strong> (Pomodoro Timer), <strong>Statistics</strong> (visualisasi progres belajar), dan <strong>Settings</strong> (personalisasi pengguna) — semuanya terhubung secara real-time dengan statistik dashboard yang dihitung otomatis.
+      </p>
+      <div class="tags">
+        <span class="tag blue">Task Management</span>
+        <span class="tag purple">Pomodoro Timer</span>
+        <span class="tag green">Study Schedule</span>
+        <span class="tag orange">Statistics</span>
+        <span class="tag blue">Dark Mode</span>
+        <span class="tag green">Responsive Design</span>
+        <span class="tag red">No Backend Needed</span>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">2</div>
+      <div class="section-title">Problem Statement</div>
+    </div>
+    <div class="section-body">
+      <div class="highlight-warn">
+        <strong>Kondisi Saat Ini:</strong> Mahasiswa rata-rata mengelola tugas, jadwal, dan waktu belajar secara terpisah — menggunakan kombinasi aplikasi notes, kalender, dan pengingat yang tidak terintegrasi satu sama lain.
+      </div>
+      <p>
+        Permasalahan utama yang melatarbelakangi pengembangan StudyFlow adalah <strong>fragmentasi pengelolaan aktivitas belajar</strong> di kalangan mahasiswa. Banyak mahasiswa kesulitan memantau deadline tugas, mengatur jadwal belajar yang konsisten, dan mengukur produktivitas mereka secara keseluruhan. Tanpa sistem yang terintegrasi, informasi tersebar di berbagai platform sehingga sulit untuk mendapatkan gambaran menyeluruh tentang beban akademik yang sedang dihadapi.
+      </p>
+      <p>
+        Lebih jauh, ketiadaan mekanisme fokus yang terstruktur — seperti teknik Pomodoro — menyebabkan banyak mahasiswa belajar tanpa ritme yang jelas, sehingga efisiensi waktu belajar rendah meskipun durasi belajarnya panjang. Tidak adanya visualisasi progres juga membuat mahasiswa sulit mengevaluasi pencapaian mereka dari waktu ke waktu.
+      </p>
+      <div class="highlight">
+        <strong>Dampak jika tidak ditangani:</strong> Tugas menumpuk dan terlewat deadline, jadwal belajar tidak konsisten, tingkat penyelesaian tugas rendah, serta menurunnya motivasi belajar akibat tidak adanya umpan balik progres yang terukur.
+      </div>
+      <p>
+        Masalah ini penting diselesaikan karena manajemen waktu yang buruk secara langsung berdampak pada performa akademik mahasiswa. Solusi yang dibutuhkan adalah sistem yang <strong>ringan, terintegrasi, dan dapat diakses tanpa ketergantungan infrastruktur</strong> — sehingga mahasiswa dapat langsung menggunakannya tanpa hambatan teknis.
+      </p>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">3</div>
+      <div class="section-title">Target Users</div>
+    </div>
+    <div class="section-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Segmen Pengguna</th>
+            <th>Karakteristik</th>
+            <th>Kebutuhan Utama</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mahasiswa Aktif</strong></td>
+            <td>Usia 18–25 tahun, memiliki banyak mata kuliah dengan tugas dan ujian berbeda</td>
+            <td>Tracking deadline tugas, jadwal belajar per mata kuliah</td>
+          </tr>
+          <tr>
+            <td><strong>Pelajar SMA/SMK</strong></td>
+            <td>Usia 15–18 tahun, menghadapi ujian nasional atau persiapan masuk perguruan tinggi</td>
+            <td>Timer fokus belajar, pengaturan sesi belajar harian</td>
+          </tr>
+          <tr>
+            <td><strong>Self-learner</strong></td>
+            <td>Individu yang belajar mandiri (kursus online, sertifikasi, upskilling)</td>
+            <td>Statistik produktivitas, pelacakan jam belajar kumulatif</td>
+          </tr>
+          <tr>
+            <td><strong>Pengguna Low-Tech</strong></td>
+            <td>Tidak memiliki akun cloud, menghindari aplikasi yang butuh registrasi</td>
+            <td>Aplikasi langsung pakai, data tersimpan lokal tanpa akun</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="highlight-green" style="margin-top:14px">
+        <strong>Primary Target:</strong> Mahasiswa aktif semester 1–8 yang memiliki 5+ mata kuliah per semester dan membutuhkan sistem manajemen tugas yang ringan namun fungsional.
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">4</div>
+      <div class="section-title">Arsitektur Prompt (Prompt Layering)</div>
+    </div>
+    <div class="section-body">
+      <p>
+        Prompt yang digunakan dalam pengembangan StudyFlow dengan IBM Bob dirancang menggunakan pendekatan <strong>multi-layer prompt</strong> — setiap layer memiliki fungsi dan cakupan yang berbeda untuk memastikan output AI Agent tepat, terstruktur, dan konsisten sepanjang sesi pengembangan.
+      </p>
+
+      <div class="layer-list">
+
+        <div class="layer-card">
+          <div class="layer-header">
+            <div class="layer-num" style="background:#4f6ef7">1</div>
+            <div class="layer-title">Layer 1 — Context &amp; Role Definition</div>
+          </div>
+          <div class="layer-body">
+            <p><strong>Tujuan:</strong> Mendefinisikan identitas, konteks, dan batasan kerja AI Agent sebelum melakukan tugas apapun.</p>
+            <p><strong>Isi Prompt:</strong> Menetapkan bahwa AI Agent berperan sebagai <em>senior full-stack web developer</em> yang ahli dalam Vanilla JavaScript, Tailwind CSS, dan arsitektur SPA tanpa framework. Disebutkan pula bahwa proyek tidak menggunakan backend, framework JS, atau database eksternal.</p>
+            <p><strong>Contoh:</strong> <em>"Kamu adalah senior web developer yang membangun aplikasi StudyFlow menggunakan hanya HTML5, CSS3/Tailwind, dan Vanilla JavaScript tanpa React/Vue/Angular dan tanpa backend. Semua data disimpan di localStorage..."</em></p>
+          </div>
+        </div>
+
+        <div class="layer-card">
+          <div class="layer-header">
+            <div class="layer-num" style="background:#7c5cd8">2</div>
+            <div class="layer-title">Layer 2 — Product Requirement Document (PRD)</div>
+          </div>
+          <div class="layer-body">
+            <p><strong>Tujuan:</strong> Memberikan spesifikasi teknis dan fungsional yang lengkap sehingga AI Agent memiliki "blue print" yang jelas.</p>
+            <p><strong>Isi Prompt:</strong> Dokumen PRD yang mencakup 20 poin spesifikasi — mulai dari struktur halaman, fitur CRUD, navigasi, desain UI/UX, accessibility, animasi, validasi form, hingga struktur file dan arsitektur JavaScript.</p>
+            <p><strong>Tujuan Layer:</strong> Mencegah AI Agent membuat asumsi di luar scope, memastikan semua fitur yang diinginkan terwakili dalam satu instruksi yang kohesif.</p>
+          </div>
+        </div>
+
+        <div class="layer-card">
+          <div class="layer-header">
+            <div class="layer-num" style="background:#22c55e">3</div>
+            <div class="layer-title">Layer 3 — Output Format &amp; File Structure Constraint</div>
+          </div>
+          <div class="layer-body">
+            <p><strong>Tujuan:</strong> Mengontrol format output sehingga kode yang dihasilkan langsung dapat digunakan tanpa modifikasi besar.</p>
+            <p><strong>Isi Prompt:</strong> Menginstruksikan AI Agent untuk memisahkan output per file (<code>index.html</code>, <code>css/style.css</code>, <code>js/storage.js</code>, dll.), menggunakan komentar antar-section, tidak menambahkan fitur di luar spesifikasi, dan memprioritaskan fungsionalitas di atas estetika berlebihan.</p>
+            <p><strong>Tujuan Layer:</strong> Menghasilkan kode yang modular, maintainable, dan siap-pakai sesuai struktur folder yang telah ditentukan.</p>
+          </div>
+        </div>
+
+        <div class="layer-card">
+          <div class="layer-header">
+            <div class="layer-num" style="background:#f59e0b">4</div>
+            <div class="layer-title">Layer 4 — Iterative Refinement Instruction</div>
+          </div>
+          <div class="layer-body">
+            <p><strong>Tujuan:</strong> Memberikan instruksi kepada AI Agent tentang cara merespons permintaan perubahan (follow-up prompt) secara efisien.</p>
+            <p><strong>Isi Prompt:</strong> Menetapkan bahwa perubahan hanya boleh dilakukan pada bagian yang diminta (surgical edit), tidak mengubah logika yang sudah berfungsi, dan setiap perubahan harus disertai penjelasan singkat dampaknya.</p>
+            <p><strong>Contoh follow-up:</strong> <em>"Ganti custom CSS dengan Tailwind, pertahankan semua logika JS yang ada"</em> — AI Agent memahami scope perubahan tanpa harus rebuild ulang.</p>
+          </div>
+        </div>
+
+        <div class="layer-card">
+          <div class="layer-header">
+            <div class="layer-num" style="background:#ef4444">5</div>
+            <div class="layer-title">Layer 5 — Quality Gate</div>
+          </div>
+          <div class="layer-body">
+            <p><strong>Tujuan:</strong> Menetapkan standar minimum kualitas yang harus dipenuhi sebelum output dianggap selesai.</p>
+            <p><strong>Isi Prompt:</strong> Berisi checklist yang harus dipenuhi — tidak ada JavaScript error di console, semua tombol berfungsi, CRUD benar-benar berjalan, data persist setelah refresh, dark mode tersimpan, timer akurat, search dan filter bekerja, modal dapat dibuka/ditutup, dan tampilan responsive di mobile.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">5</div>
+      <div class="section-title">Iterasi Prompt</div>
+    </div>
+    <div class="section-body">
+      <p>Selama proses pengembangan, dilakukan beberapa iterasi prompt untuk menyempurnakan kualitas output AI Agent. Berikut kronologi iterasi utama:</p>
+
+      <div class="iter-list">
+
+        <div class="iter-card">
+          <div class="iter-header">
+            <span class="iter-ver">v1.0</span>
+            <span class="iter-label">Prompt Awal — Single Monolithic Prompt</span>
+          </div>
+          <div class="iter-grid">
+            <div>
+              <div class="iter-col-head">Kondisi Awal</div>
+              <div class="iter-col-body">Prompt dikirim dalam satu blok panjang berisi semua spesifikasi sekaligus tanpa struktur yang jelas. Tidak ada pemisahan antara role, requirement, dan output format.</div>
+            </div>
+            <div>
+              <div class="iter-col-head">Masalah yang Ditemukan</div>
+              <div class="iter-col-body">AI menghasilkan kode yang tidak konsisten antar-file, beberapa fitur terlewat, dan struktur folder tidak sesuai spesifikasi. Output memerlukan banyak perbaikan manual.</div>
+            </div>
+            <div>
+              <div class="iter-col-head">Perubahan Dilakukan</div>
+              <div class="iter-col-body">Memisahkan prompt menjadi layer terstruktur: Role → PRD → Output Format → Quality Gate. Hasilnya jauh lebih konsisten dan lengkap.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="iter-card">
+          <div class="iter-header">
+            <span class="iter-ver">v1.1</span>
+            <span class="iter-label">Penyempurnaan — Spesifikasi Teknologi Lebih Ketat</span>
+          </div>
+          <div class="iter-grid">
+            <div>
+              <div class="iter-col-head">Kondisi Sebelum</div>
+              <div class="iter-col-body">Prompt menyebutkan "gunakan CSS modern" tanpa spesifik. AI menghasilkan custom CSS dengan CSS Variables yang valid tapi tidak menggunakan Tailwind.</div>
+            </div>
+            <div>
+              <div class="iter-col-head">Masalah yang Ditemukan</div>
+              <div class="iter-col-body">Style yang dihasilkan terlalu besar (~950 baris CSS), sulit di-maintain, dan tidak memanfaatkan utility-first approach yang diinginkan.</div>
+            </div>
+            <div>
+              <div class="iter-col-head">Perubahan Dilakukan</div>
+              <div class="iter-col-body">Menambahkan instruksi eksplisit: <em>"Gunakan Tailwind CSS CDN Play, pertahankan custom class hanya untuk hal yang tidak bisa dilakukan Tailwind"</em>. CSS turun dari 950 → 200 baris.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="iter-card">
+          <div class="iter-header">
+            <span class="iter-ver">v1.2</span>
+            <span class="iter-label">Penyempurnaan — Dark Mode Implementation</span>
+          </div>
+          <div class="iter-grid">
+            <div>
+              <div class="iter-col-head">Kondisi Sebelum</div>
+              <div class="iter-col-body">Dark mode menggunakan <code>data-theme="dark"</code> pada elemen <code>html</code> dengan CSS Variables. Tailwind tidak mengenali mekanisme ini.</div>
+            </div>
+            <div>
+              <div class="iter-col-head">Masalah yang Ditemukan</div>
+              <div class="iter-col-body">Setelah migrasi ke Tailwind, dark mode tidak berfungsi karena Tailwind <code>darkMode: 'class'</code> membutuhkan class <code>.dark</code> bukan attribute <code>data-theme</code>.</div>
+            </div>
+            <div>
+              <div class="iter-col-head">Perubahan Dilakukan</div>
+              <div class="iter-col-body">Prompt diperbarui dengan instruksi: <em>"Gunakan <code>darkMode: 'class'</code> pada Tailwind config, toggle dengan <code>classList.add/remove('dark')</code> pada elemen <code>html</code>"</em>. Dark mode berfungsi sempurna.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="iter-card">
+          <div class="iter-header">
+            <span class="iter-ver">v1.3</span>
+            <span class="iter-label">Penyempurnaan — CRUD Data Persistence</span>
+          </div>
+          <div class="iter-grid">
+            <div>
+              <div class="iter-col-head">Kondisi Sebelum</div>
+              <div class="iter-col-body">Prompt hanya menyebutkan "simpan ke localStorage" tanpa menjelaskan kapan seed data boleh dijalankan vs kapan tidak boleh.</div>
+            </div>
+            <div>
+              <div class="iter-col-head">Masalah yang Ditemukan</div>
+              <div class="iter-col-body">Setiap kali halaman di-refresh, seed demo data menimpa data yang sudah ditambahkan pengguna, sehingga data baru yang dibuat pengguna hilang.</div>
+            </div>
+            <div>
+              <div class="iter-col-head">Perubahan Dilakukan</div>
+              <div class="iter-col-body">Prompt diperbarui: <em>"Seed data hanya boleh berjalan jika <code>localStorage</code> benar-benar kosong (<code>tasks.length === 0</code>). Setelah ada data apapun, seed tidak boleh berjalan lagi."</em></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">6</div>
+      <div class="section-title">Screenshot Prompt pada IBM Bob</div>
+    </div>
+    <div class="section-body">
+      <div class="screenshot-box">
+        <div class="icon">🖼️</div>
+        <div class="label">Screenshot Prompt IBM Bob</div>
+        <div class="sub">Upload screenshot interaksi prompt dengan IBM Bob Agent di sini.<br />Tunjukkan layar percakapan saat mengirimkan PRD dan respons awal dari AI Agent.</div>
+      </div>
+      <div class="note-box">
+        💡 <strong>Tips:</strong> Screenshot yang ideal menampilkan: (1) prompt PRD lengkap yang dikirim, (2) respons IBM Bob yang berisi kode terstruktur, dan (3) tampilan aplikasi hasil generate yang sudah berjalan di browser.
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">7</div>
+      <div class="section-title">Screenshot Playground / Hasil Pengujian</div>
+    </div>
+    <div class="section-body">
+      <div class="screenshot-box">
+        <div class="icon">🧪</div>
+        <div class="label">Screenshot Hasil Pengujian Aplikasi</div>
+        <div class="sub">Upload screenshot aplikasi StudyFlow yang sedang berjalan di browser.<br />Tampilkan halaman Dashboard, Tasks, Focus Mode, dan dark mode.</div>
+      </div>
+      <p style="margin-top:14px;font-size:13px;color:#57606a">
+        <strong>Skenario pengujian yang disarankan untuk ditampilkan:</strong>
+      </p>
+      <table style="margin-top:8px">
+        <thead>
+          <tr>
+            <th>Fitur yang Diuji</th>
+            <th>Langkah Pengujian</th>
+            <th>Hasil yang Diharapkan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Add Task</strong></td>
+            <td>Klik "+ Add Task" → isi form → Save</td>
+            <td>Task muncul di list, tersimpan setelah refresh</td>
+          </tr>
+          <tr>
+            <td><strong>Pomodoro Timer</strong></td>
+            <td>Klik "Start" → tunggu beberapa detik → Pause → Reset</td>
+            <td>Ring animasi bergerak, timer countdown akurat</td>
+          </tr>
+          <tr>
+            <td><strong>Dark Mode</strong></td>
+            <td>Toggle 🌙 di sidebar</td>
+            <td>Seluruh tampilan berubah gelap, tersimpan setelah refresh</td>
+          </tr>
+          <tr>
+            <td><strong>Filter Tasks</strong></td>
+            <td>Pilih filter "High" priority + search keyword</td>
+            <td>Hanya task sesuai filter yang tampil</td>
+          </tr>
+          <tr>
+            <td><strong>Statistics</strong></td>
+            <td>Buka halaman Statistics setelah 2–3 sesi focus</td>
+            <td>Bar chart mingguan dan completion rate terupdate</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">8</div>
+      <div class="section-title">Potensi Pengembangan Lanjutan</div>
+    </div>
+    <div class="section-body">
+      <div class="potential-list">
+        <div class="potential-item">
+          <div class="potential-icon">🤖</div>
+          <div>
+            <div class="potential-title">AI Study Planner (IBM Watson / Watsonx)</div>
+            <div class="potential-desc">Mengintegrasikan IBM Watsonx.ai untuk memberikan rekomendasi jadwal belajar otomatis berdasarkan deadline tugas, pola fokus pengguna, dan tingkat kesulitan mata kuliah. AI dapat menyarankan "Waktu terbaik belajar Matematika hari ini adalah jam 09.00."</div>
+          </div>
+        </div>
+        <div class="potential-item">
+          <div class="potential-icon">☁️</div>
+          <div>
+            <div class="potential-title">Cloud Sync dengan IBM Cloud Object Storage</div>
+            <div class="potential-desc">Sinkronisasi data antar perangkat menggunakan IBM Cloud Object Storage atau Cloudant, sehingga pengguna dapat mengakses data tugas dan jadwal dari laptop, tablet, maupun smartphone.</div>
+          </div>
+        </div>
+        <div class="potential-item">
+          <div class="potential-icon">📱</div>
+          <div>
+            <div class="potential-title">Progressive Web App (PWA)</div>
+            <div class="potential-desc">Menambahkan Service Worker dan Web App Manifest agar StudyFlow dapat diinstal sebagai aplikasi di smartphone (Android/iOS) dan berjalan offline sepenuhnya, termasuk push notification untuk reminder deadline.</div>
+          </div>
+        </div>
+        <div class="potential-item">
+          <div class="potential-icon">👥</div>
+          <div>
+            <div class="potential-title">Fitur Kolaborasi Belajar</div>
+            <div class="potential-desc">Memungkinkan mahasiswa berbagi jadwal belajar dan tugas dalam kelompok studi, dengan fitur komentar, pembagian tugas per anggota, dan progress tracking bersama.</div>
+          </div>
+        </div>
+        <div class="potential-item">
+          <div class="potential-icon">📊</div>
+          <div>
+            <div class="potential-title">Advanced Analytics dengan IBM Cognos / Grafana</div>
+            <div class="potential-desc">Visualisasi data belajar yang lebih mendalam: tren produktivitas bulanan, korelasi antara jam belajar dan penyelesaian tugas, serta prediksi risiko tugas terlambat berdasarkan pola historis.</div>
+          </div>
+        </div>
+        <div class="potential-item">
+          <div class="potential-icon">🔔</div>
+          <div>
+            <div class="potential-title">Smart Reminder &amp; Notifikasi Cerdas</div>
+            <div class="potential-desc">Sistem notifikasi berbasis AI yang memperkirakan kapan pengguna mulai bekerja pada tugas dan mengirimkan reminder adaptif — bukan hanya H-1 deadline, tetapi juga berdasarkan estimasi durasi pengerjaan tugas.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">9</div>
+      <div class="section-title">Link Project</div>
+    </div>
+    <div class="section-body">
+      <p>Berikut tautan yang dapat diakses oleh reviewer untuk meninjau project StudyFlow:</p>
+
+      <div class="link-item">
+        <div class="link-icon">🐙</div>
+        <div>
+          <div class="link-label">GitHub Repository</div>
+          <div class="link-url">https://github.com/[username]/studyflow — Source code lengkap (index.html, css/, js/)</div>
+        </div>
+      </div>
+      <div class="link-item">
+        <div class="link-icon">▶️</div>
+        <div>
+          <div class="link-label">Live Demo (GitHub Pages)</div>
+          <div class="link-url">https://[username].github.io/studyflow — Aplikasi dapat langsung dicoba di browser</div>
+        </div>
+      </div>
+      <div class="link-item">
+        <div class="link-icon">📁</div>
+        <div>
+          <div class="link-label">Google Drive (Source Code + Dokumentasi)</div>
+          <div class="link-url">https://drive.google.com/drive/folders/[folder-id] — Berisi zip project, screenshot, dan dokumen PRD</div>
+        </div>
+      </div>
+      <div class="link-item">
+        <div class="link-icon">🤖</div>
+        <div>
+          <div class="link-label">IBM Bob Agent — Sesi Pengembangan</div>
+          <div class="link-url">https://[ibm-bob-link] — Link percakapan IBM Bob yang digunakan untuk mengembangkan project ini</div>
+        </div>
+      </div>
+
+      <div class="note-box">
+        📌 <strong>Catatan:</strong> Ganti placeholder <code>[username]</code>, <code>[folder-id]</code>, dan <code>[ibm-bob-link]</code> dengan link aktual sebelum pengumpulan. Pastikan akses repository GitHub diatur ke <strong>Public</strong> dan link Google Drive dibagikan dengan mode <strong>"Anyone with the link can view"</strong>.
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="footer">
+    <div style="margin-bottom:6px">StudyFlow — Personal Study Management Dashboard</div>
+    <div>Capstone Project · IBM SkillsBuild · Dibuat dengan IBM Bob</div>
+    <div style="margin-top:8px;padding-top:8px;border-top:1px solid #e5e7eb">Made with IBM Bob</div>
+  </div>
+
+</div>
+</body>
+</html>
